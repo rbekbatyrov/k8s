@@ -1,0 +1,13 @@
+>>> master <<<
+yum clean all
+yum install -y kubeadm-1.19.0-0 --disableexcludes=kubernetes
+kubectl drain k8s-master --ignore-daemonsets --force
+kubeadm upgrade plan
+kubeadm upgrade apply v1.19.0-0
+yum install -y kubelet-1.19.0-0 kubectl-1.19.0-0 --disableexcludes=kubernetes
+systemctl daemon-reload && systemctl restart kubelet
+kubectl uncordon k8s-master
+
+>>> worker <<<
+kubectl drain k8s-node01 --ignore-daemonsets --force
+kubectl uncordon k8s-node01
