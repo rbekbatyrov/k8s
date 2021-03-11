@@ -1,0 +1,4 @@
+helm upgrade -i [release] -n [namespace]
+helm history [release] -n [namespace]
+helm rollback [release] 0 -n [namespace]
+helm rollback [release] [revision_number]
